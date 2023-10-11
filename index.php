@@ -359,8 +359,8 @@ if($auth){
     <div class="col-sm-6 pt-1 pt-md-0">
       <div class="card text-center">
         <div class="card-body">
-          <h5 class="card-title"><i class="bi bi-hdd-rack"></i>&nbsp;Hardware</h5>
-          <?php print "<pre>"; echo shell_exec("lsusb"); print "</pre>"; ?>
+          <h5 class="card-title"><i class="bi bi-hdd-rack"></i>&nbsp;Homebridge Service</h5>
+          <?php print "<pre style='text-align: left!important;'>"; echo shell_exec("systemctl status homebridge.service"); print "</pre>"; ?>
           <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
         </div>
       </div>
@@ -368,28 +368,8 @@ if($auth){
     <div class="col-sm-6 pt-1 pt-md-0">
       <div class="card text-center">
         <div class="card-body">
-          <h5 class="card-title"><i class="bi bi-globe"></i>&nbsp;Web Server</h5>
-          <p class="card-text" id="webinfo">Software: <b><?php echo $_SERVER["SERVER_SOFTWARE"];?></b><br>Address: <b><?php echo $_SERVER["SERVER_ADDR"];?></b><br>PHP version: <b><?php echo phpversion();?></b><br>User: <b><?php system("whoami"); ?></b><br>Protocol: <b><?php echo $_SERVER["SERVER_PROTOCOL"]; ?></b></p>
-          <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row pt-3">
-    <div class="col-sm-6 pt-1 pt-md-0">
-      <div class="card text-center">
-        <div class="card-body">
-          <h5 class="card-title"><i class="bi bi-hdd"></i>&nbsp;Disk Space</h5>
-          <p class="card-text"><canvas height="100" class="doughnut-chart-container" id="space"></canvas>Total: <b><?php echo $ds_rund;?> GB</b> &#183; Free: <b><?php echo $df_rund;?> GB</b> &#183; Used: <b><?php echo round($ds-$df,2);?> GB</b></p>
-          <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-6 pt-1 pt-md-0">
-      <div class="card text-center">
-        <div class="card-body">
-          <h5 class="card-title"><i class="bi bi-lightning"></i>&nbsp;Voltage</h5>
-          <p style="font-size: 20px" class="card-text text-muted"><?php echo $spannung; ?></p>
+        <h5 class="card-title"><i class="bi bi-hdd-rack"></i>&nbsp;PiHole Service</h5>
+          <?php print "<pre style='text-align: left!important;'>"; echo shell_exec("systemctl status pihole-FTL.service"); print "</pre>"; ?>
           <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
         </div>
       </div>
@@ -397,20 +377,19 @@ if($auth){
   </div>
   <div class="row pt-3">
     <div class="col-sm-6 pt-1 pt-md-0">
-    <div class="card text-center">
-      <div class="card-header">Kernel</div>
-      <div class="card-body">
-        <p class="card-text" id="kernel"><?php echo php_uname(); ?></p>
-        <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title"><i class="bi bi-hdd-rack"></i>&nbsp;Log2ram Service</h5>
+          <?php print "<pre style='text-align: left!important;'>"; echo shell_exec("systemctl status log2ram.service"); print "</pre>"; ?>
+          <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
+        </div>
       </div>
-    </div>
     </div>
     <div class="col-sm-6 pt-1 pt-md-0">
       <div class="card text-center">
-        <div class="card-header">Model</div>
         <div class="card-body">
-          <samp><?php echo exec("cat /sys/firmware/devicetree/base/model");?></samp>
-          <?php $ot=shell_exec("vcgencmd version");if($permissionerr){echo "<div class='alert alert-danger' role='alert'>Execution of system command failed. Please run<br><kbd>sudo usermod -aG video www-data</kbd><br>in a terminal to solve this problem.&nbsp;<a href='https://github.com/femto-code/Raspberry-Pi-Dashboard#core-voltage-or-other-hardware-info-output-is-not-shown-optional' target='blank'><i class='bi bi-question-circle'></i>&nbsp;Help</a></div>";}else{echo '<samp>'.$ot.'</samp>';}?>
+          <h5 class="card-title"><i class="bi bi-hdd-rack"></i>&nbsp;Samba Service</h5>
+          <?php print "<pre style='text-align: left!important;'>"; echo shell_exec("systemctl status smbd"); print "</pre>"; ?>
           <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
         </div>
       </div>
@@ -428,9 +407,70 @@ if($auth){
     </div>
     <div class="col-sm-6 pt-1 pt-md-0">
       <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title"><i class="bi bi-hdd"></i>&nbsp;Disk Space</h5>
+          <p class="card-text"><canvas height="100" class="doughnut-chart-container" id="space"></canvas>Total: <b><?php echo $ds_rund;?> GB</b> &#183; Free: <b><?php echo $df_rund;?> GB</b> &#183; Used: <b><?php echo round($ds-$df,2);?> GB</b></p>
+          <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row pt-3">
+    <div class="col-sm-6 pt-1 pt-md-0">
+      <div class="card text-center">
         <div class="card-header">Operating System</div>
         <div class="card-body">
-          <?php print "<pre>"; echo shell_exec("cat /etc/os-release"); print "</pre>"; ?>
+          <?php print "<pre style='text-align: left!important;'>"; echo shell_exec("cat /etc/os-release"); print "</pre>"; ?>
+          <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 pt-1 pt-md-0">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title"><i class="bi bi-lightning"></i>&nbsp;Voltage</h5>
+          <p style="font-size: 20px" class="card-text text-muted"><?php echo $spannung; ?></p>
+          <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row pt-3">
+    <div class="col-sm-6 pt-1 pt-md-0">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title"><i class="bi bi-hdd-rack"></i>&nbsp;Hardware</h5>
+          <?php print "<pre style='text-align: left!important;'>"; echo shell_exec("lsusb"); print "</pre>"; ?>
+          <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 pt-1 pt-md-0">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title"><i class="bi bi-globe"></i>&nbsp;Web Server</h5>
+          <p class="card-text" id="webinfo">Software: <b><?php echo $_SERVER["SERVER_SOFTWARE"];?></b><br>Address: <b><?php echo $_SERVER["SERVER_ADDR"];?></b><br>PHP version: <b><?php echo phpversion();?></b><br>User: <b><?php system("whoami"); ?></b><br>Protocol: <b><?php echo $_SERVER["SERVER_PROTOCOL"]; ?></b></p>
+          <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row pt-3">
+    <div class="col-sm-6 pt-1 pt-md-0">
+    <div class="card text-center">
+      <div class="card-header">Kernel</div>
+      <div class="card-body">
+        <p class="card-text" id="kernel"><?php print "<pre style='text-align: left!important;'>"; echo php_uname(); ?></p>
+        <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
+      </div>
+    </div>
+    </div>
+    <div class="col-sm-6 pt-1 pt-md-0">
+      <div class="card text-center">
+        <div class="card-header">Model</div>
+        <div class="card-body">
+          <samp><?php print "<pre style='text-align: left!important;'>"; echo exec("cat /sys/firmware/devicetree/base/model");?></samp>
+          <?php $ot=shell_exec("vcgencmd version");if($permissionerr){echo "<div class='alert alert-danger' role='alert'>Execution of system command failed. Please run<br><kbd>sudo usermod -aG video www-data</kbd><br>in a terminal to solve this problem.&nbsp;<a href='https://github.com/femto-code/Raspberry-Pi-Dashboard#core-voltage-or-other-hardware-info-output-is-not-shown-optional' target='blank'><i class='bi bi-question-circle'></i>&nbsp;Help</a></div>";}else{echo '<samp>'.$ot.'</samp>';}?>
           <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
         </div>
       </div>
